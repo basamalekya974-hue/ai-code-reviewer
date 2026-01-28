@@ -1,33 +1,30 @@
+import random
+
 def suggest_code(code_string):
     suggestions = []
 
     lines = code_string.splitlines()
 
-    # Suggestion 1: print usage
     if any("print(" in line for line in lines):
         suggestions.append(
-            "Consider using logging instead of print statements for better debugging and scalability."
+            "Consider using logging instead of print statements for better debugging."
         )
 
-    # Suggestion 2: Long code
     if len(lines) > 10:
         suggestions.append(
-            "Consider breaking the code into smaller functions to improve readability."
+            "Consider breaking the code into smaller functions for better readability."
         )
 
-    # Suggestion 3: Variable naming
     if any(len(word) == 1 for word in code_string.split()):
         suggestions.append(
             "Avoid using single-letter variable names; use descriptive names instead."
         )
 
-    # Suggestion 4: Function usage
     if "def " not in code_string:
         suggestions.append(
-            "Consider organizing the code into functions for better structure."
+            "Organize the code into functions to improve structure."
         )
 
-    # Suggestion 5: Empty lines check
     if "" in lines:
         suggestions.append(
             "Remove unnecessary blank lines to keep the code clean."
@@ -36,6 +33,11 @@ def suggest_code(code_string):
     if not suggestions:
         suggestions.append("Code looks clean. No major improvements suggested.")
 
+    # 🔁 Shuffle suggestions to simulate refresh behavior
+    random.shuffle(suggestions)
+
     return suggestions
+
+
 
 
