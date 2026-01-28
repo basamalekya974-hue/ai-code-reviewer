@@ -27,7 +27,7 @@ if "run" not in st.session_state:
 if analyze_clicked or refresh_clicked:
     st.session_state.run = True
 
-# Analysis section
+# ---------------- ANALYSIS ----------------
 if st.session_state.run:
     if code.strip():
         # Parsing
@@ -43,7 +43,7 @@ if st.session_state.run:
         else:
             st.info("No errors found.")
 
-        # AI Suggestions + Improved Code (CORRECT USAGE)
+        # AI Suggestions + Improved Code
         result = suggest_code(code)
 
         st.subheader("AI Suggestions")
@@ -55,6 +55,7 @@ if st.session_state.run:
 
     else:
         st.warning("Please enter some Python code.")
+
 
 
 
