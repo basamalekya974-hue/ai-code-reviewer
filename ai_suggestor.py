@@ -1,34 +1,41 @@
 import random
 
 def suggest_code(code_string):
-    pool = []
+    suggestions = []
+    improved_code = code_string
+
     lines = code_string.splitlines()
 
-    # Possible suggestions pool
+    # Suggestion: print -> logging
     if any("print(" in line for line in lines):
-        pool.append("Use logging instead of print statements for better debugging.")
-        pool.append("Avoid print statements in production-level code.")
+        suggestions.append(
+            "Replace print statements with logging for better practice."
+        )
+        improved_code = improved_code.replace(
+            "print(", "logging.info("
+        )
 
-    if len(lines) > 10:
-        pool.append("Break the code into smaller functions for better readability.")
-        pool.append("Large code blocks can be refactored into reusable functions.")
+    # Suggestion: unused variables (generic guidance)
+    suggestions.append(
+        "Remove unused variables to make the code cleaner."
+    )
 
-    if any(len(word) == 1 for word in code_string.split()):
-        pool.append("Avoid single-letter variable names; use descriptive names.")
-        pool.append("Use meaningful variable names to improve code clarity.")
-
+    # Suggestion: function structure
     if "def " not in code_string:
-        pool.append("Organize logic into functions for better structure.")
+        suggestions.append(
+            "Organize the code into functions for better structure."
+        )
 
-    if "" in lines:
-        pool.append("Remove unnecessary blank lines to keep the code clean.")
+    # If no suggestions detected
+    if not suggestions:
+        suggestions.append("Code looks clean. No major improvements suggested.")
 
-    if not pool:
-        return ["Code looks clean. No major improvements suggested."]
+    # Shuffle suggestions for refresh behavior
+    random.shuffle(suggestions)
 
-    # 🔁 NEW PART: return RANDOM SUBSET
-    num_suggestions = random.randint(1, min(3, len(pool)))
-    return random.sample(pool, num_suggestions)
+    return suggestions, improved_code
+
+
 
 
 
