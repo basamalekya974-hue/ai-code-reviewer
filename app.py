@@ -1,14 +1,14 @@
 import streamlit as st
 from code_parser import parse_code
 from error_detector import detect_errors
-
+from ai_suggestor import suggest_code
 
 st.set_page_config(page_title="AI Code Reviewer", layout="centered")
 
 st.title("AI Code Reviewer")
 st.write("Paste your Python code below to analyze errors and get suggestions.")
 
-# Text area for code input
+# Input area
 code = st.text_area("Paste your Python code here", height=200)
 
 # Buttons
@@ -20,11 +20,10 @@ with col1:
 with col2:
     refresh_clicked = st.button("Refresh")
 
-# Store run state
+# Session state
 if "run" not in st.session_state:
     st.session_state.run = False
 
-# Analyze or Refresh → same behavior (re-run analysis)
 if analyze_clicked or refresh_clicked:
     st.session_state.run = True
 
@@ -44,18 +43,19 @@ if st.session_state.run:
         else:
             st.info("No errors found.")
 
-        # AI Suggestions + Improved Code
-        suggestions, improved_code = suggest_code(code)
+        # AI Suggestions + Improved Code (CORRECT USAGE)
+        result = suggest_code(code)
 
         st.subheader("AI Suggestions")
-        for s in suggestions:
+        for s in result["suggestions"]:
             st.write(f"- {s}")
 
-        st.subheader("Improved Code")
-        st.code(improved_code, language="python")
+        st.write("**Improved Code:**")
+        st.code(result["improved_code"], language="python")
 
     else:
         st.warning("Please enter some Python code.")
+
 
 
 
