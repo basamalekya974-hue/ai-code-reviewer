@@ -44,14 +44,19 @@ if st.session_state.run:
         else:
             st.info("No errors found.")
 
-        # AI Suggestions
+        # AI Suggestions + Improved Code
+        suggestions, improved_code = suggest_code(code)
+
         st.subheader("AI Suggestions")
-        suggestions = suggest_code(code)
         for s in suggestions:
             st.write(f"- {s}")
 
+        st.subheader("Improved Code")
+        st.code(improved_code, language="python")
+
     else:
         st.warning("Please enter some Python code.")
+
 
 
     
