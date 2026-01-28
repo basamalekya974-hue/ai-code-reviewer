@@ -1,4 +1,4 @@
-import random
+import logging
 
 def suggest_code(code_string):
     suggestions = []
@@ -6,7 +6,7 @@ def suggest_code(code_string):
 
     lines = code_string.splitlines()
 
-    # Suggestion: print -> logging
+    # Suggestion: replace print with logging
     if any("print(" in line for line in lines):
         suggestions.append(
             "Replace print statements with logging for better practice."
@@ -15,9 +15,9 @@ def suggest_code(code_string):
             "print(", "logging.info("
         )
 
-    # Suggestion: unused variables (generic guidance)
+    # Suggestion: unused variables (generic improvement)
     suggestions.append(
-        "Remove unused variables to make the code cleaner."
+        "Remove unused variables to improve code clarity."
     )
 
     # Suggestion: function structure
@@ -26,14 +26,15 @@ def suggest_code(code_string):
             "Organize the code into functions for better structure."
         )
 
-    # If no suggestions detected
     if not suggestions:
         suggestions.append("Code looks clean. No major improvements suggested.")
 
-    # Shuffle suggestions for refresh behavior
-    random.shuffle(suggestions)
+    return {
+        "suggestions": suggestions,
+        "improved_code": improved_code
+    }
 
-    return suggestions, improved_code
+
 
 
 
