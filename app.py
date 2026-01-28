@@ -1,7 +1,7 @@
 import streamlit as st
 from code_parser import parse_code
 from error_detector import detect_errors
-from ai_suggestor import suggest_code
+
 
 st.set_page_config(page_title="AI Code Reviewer", layout="centered")
 
